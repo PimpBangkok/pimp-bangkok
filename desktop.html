@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The PIMP Bangkok — #1 Gentlemen's Club in Thailand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bk:#0A0A0A;--void:#111;--card:#1A1A1A;--elev:#222;
+  --wh:#F5F0EB;--mu:#6B6560;--n4:#8A8480;--n3:#AAAAAA;
+  --rd:#D4002A;--rdd:#A80020;
+  --go:#C49A3C;--gol:#E8C97A;
+  --gdim:rgba(196,154,60,0.22);--gmid:rgba(196,154,60,0.5);
+  --df:'Cormorant Garamond',serif;--hf:'Playfair Display',serif;
+  --bf:'DM Sans',sans-serif;--mf:'DM Mono',monospace;
+  --ease:cubic-bezier(0.25,0,0,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bk);color:var(--wh);font-family:var(--bf);overflow-x:hidden}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:68px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 48px;
+  background:rgba(10,10,10,0.93);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--gdim);transition:border-color 300ms}
+.nav.scrolled{border-bottom-color:var(--gmid)}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0}
+.nav-brand svg{height:28px}
+.nav-brand-name{font-family:var(--mf);font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--wh)}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links li a{font-family:var(--mf);font-size:9.5px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--n4);text-decoration:none;padding:0 16px;cursor:pointer;
+  transition:color 200ms;display:block;line-height:68px;border-bottom:2px solid transparent;
+  transition:color 200ms,border-color 200ms}
+.nav-links li a:hover,.nav-links li a.active{color:var(--wh);border-bottom-color:var(--rd)}
+.nav-cta{font-family:var(--mf);font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  background:var(--rd);color:var(--wh);padding:11px 22px;border:none;cursor:pointer;
+  text-decoration:none;display:inline-block;transition:background 200ms;flex-shrink:0}
+.nav-cta:hover{background:var(--rdd)}
+
+/* PAGE ROUTER */
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* SHARED SECTION */
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.sec{padding:96px 0}
+.sec.dark{background:var(--void)}
+.eyebrow{font-family:var(--mf);font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--go);display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.eyebrow::before{content:'';width:2px;height:20px;background:var(--rd);flex-shrink:0}
+.stitle{font-family:var(--hf);font-size:clamp(36px,4vw,60px);font-weight:900;line-height:1.05;color:var(--wh);margin-bottom:20px}
+.stitle em{font-style:italic;color:var(--go);font-weight:400}
+.sbody{font-size:16px;color:var(--n4);line-height:1.75;font-weight:300;max-width:640px}
+.sbody strong{color:var(--wh);font-weight:500}
+hr.rule{border:none;height:1px;background:var(--gdim);margin:48px 0}
+
+/* HERO */
+.hero{height:100vh;min-height:680px;position:relative;display:flex;align-items:flex-end;
+  padding-bottom:80px;margin-top:68px}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:brightness(0.5) contrast(1.1)}
+.hero-ov{position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(10,10,10,0.95) 30%,rgba(10,10,10,0.3) 70%),
+  linear-gradient(to top,rgba(10,10,10,0.8),transparent 50%)}
+.hero-content{position:relative;z-index:2;max-width:620px}
+.hero-eyebrow{font-family:var(--mf);font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--go);display:block;margin-bottom:18px}
+.hero-title{font-family:var(--df);font-size:clamp(56px,7vw,100px);font-weight:300;
+  line-height:0.93;letter-spacing:-0.02em;color:var(--wh);margin-bottom:20px}
+.hero-title em{font-style:italic;color:var(--gol)}
+.hero-sub{font-family:var(--df);font-size:clamp(16px,1.5vw,20px);font-weight:300;
+  font-style:italic;color:var(--n4);margin-bottom:36px;line-height:1.6}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-rd{font-family:var(--mf);font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  background:var(--rd);color:var(--wh);padding:16px 32px;border:none;cursor:pointer;
+  text-decoration:none;display:inline-block;transition:background 200ms}
+.btn-rd:hover{background:var(--rdd)}
+.btn-go{font-family:var(--mf);font-size:11px;letter-spacing:3px;text-transform:uppercase;
+  background:transparent;color:var(--go);border:1px solid var(--go);padding:15px 32px;
+  cursor:pointer;text-decoration:none;display:inline-block;transition:background 200ms}
+.btn-go:hover{background:rgba(196,154,60,0.1)}
+
+/* TICKER */
+.ticker{border-top:1px solid var(--gdim);border-bottom:1px solid var(--gdim);
+  overflow:hidden;padding:9px 0;background:var(--void)}
+.tick-track{display:inline-block;white-space:nowrap;
+  animation:tick 22s linear infinite;
+  font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--mu)}
+.tick-track .d{color:var(--go);margin:0 14px}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* TWO-COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.two-col.reverse{direction:rtl}.two-col.reverse>*{direction:ltr}
+.img-block{position:relative}
+.img-ph{background:var(--card);border:1px solid var(--gdim);overflow:hidden;
+  display:flex;align-items:center;justify-content:center;font-family:var(--mf);
+  font-size:8px;letter-spacing:2px;color:var(--mu)}
+.img-ph img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(0.85) contrast(1.05)}
+.img-accent{position:absolute;bottom:-16px;right:-16px;width:100px;height:100px;
+  border:1px solid var(--gdim);pointer-events:none}
+
+/* FEATURE GRID */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim);margin-top:32px}
+.feat{background:var(--card);padding:24px 20px}
+.feat-ico{font-family:var(--mf);font-size:14px;color:var(--go);margin-bottom:10px}
+.feat h4{font-family:var(--hf);font-size:16px;font-weight:700;color:var(--wh);margin-bottom:6px}
+.feat p{font-size:13px;color:var(--n4);line-height:1.55;font-weight:300}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim);margin-top:32px}
+.step{background:var(--card);padding:28px 20px}
+.step-n{font-family:var(--df);font-size:48px;font-weight:300;color:var(--go);line-height:1;margin-bottom:12px}
+.step h3{font-family:var(--hf);font-size:15px;font-weight:700;color:var(--wh);margin-bottom:8px}
+.step p{font-size:12px;color:var(--n4);line-height:1.6;font-weight:300}
+
+/* ROOM GRID */
+.room-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim)}
+.room-card{background:var(--card);overflow:hidden;cursor:pointer;transition:background 300ms}
+.room-card:hover{background:#212121}
+.room-card:hover .room-img img{transform:scale(1.04)}
+.room-img{height:180px;overflow:hidden;position:relative}
+.room-img img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(0.8) contrast(1.05);transition:transform 600ms var(--ease)}
+.room-img .room-price{position:absolute;bottom:12px;right:12px;
+  background:rgba(10,10,10,0.85);border:1px solid var(--gdim);
+  font-family:var(--mf);font-size:9px;letter-spacing:1.5px;color:var(--go);padding:5px 10px}
+.room-body{padding:16px 18px 20px}
+.room-tag{font-family:var(--mf);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--go);display:block;margin-bottom:5px}
+.room-name{font-family:var(--hf);font-size:18px;font-weight:700;color:var(--wh);margin-bottom:6px}
+.room-feats{font-size:12px;color:var(--n4);line-height:1.7;font-weight:300}
+
+/* PRICING TABLE */
+.price-table{width:100%;border-collapse:collapse;border:1px solid var(--gdim);margin-top:24px}
+.price-table th{font-family:var(--mf);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--go);padding:12px 16px;text-align:left;border-bottom:1px solid var(--gdim);background:var(--card)}
+.price-table td{padding:12px 16px;font-size:13px;color:var(--n4);border-bottom:1px solid rgba(196,154,60,0.08)}
+.price-table tr:last-child td{border-bottom:none}
+.price-table tr:hover td{background:rgba(196,154,60,0.04);color:var(--wh)}
+.price-tag{font-family:var(--mf);font-size:12px;color:var(--gol)}
+
+/* QUOTE */
+.quote-band{background:var(--void);border-top:1px solid var(--gdim);border-bottom:1px solid var(--gdim);
+  padding:80px 0;text-align:center}
+.quote-mark{font-family:var(--df);font-size:96px;color:rgba(196,154,60,0.12);
+  line-height:0.7;display:block;margin-bottom:16px}
+.quote-text{font-family:var(--df);font-size:clamp(28px,3.5vw,52px);font-weight:300;
+  font-style:italic;color:var(--wh);max-width:800px;margin:0 auto 16px;line-height:1.3}
+.quote-attr{font-family:var(--mf);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--go)}
+
+/* EVENTS GRID */
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim)}
+.ev-card{background:var(--card);overflow:hidden;cursor:pointer;transition:background 250ms}
+.ev-card:hover{background:#212121}
+.ev-img{height:200px;position:relative;overflow:hidden;display:flex;align-items:center;
+  justify-content:center;font-family:var(--mf);font-size:8px;letter-spacing:2px;color:var(--mu)}
+.ev-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:brightness(0.7);transition:transform 600ms var(--ease)}
+.ev-card:hover .ev-img img{transform:scale(1.04)}
+.ev-badge{position:absolute;top:12px;right:12px;font-family:var(--mf);font-size:7px;
+  letter-spacing:2px;text-transform:uppercase;padding:4px 9px}
+.bdg-rd{background:var(--rd);color:var(--wh)}
+.bdg-go{color:var(--go);border:1px solid var(--go)}
+.ev-body{padding:18px 20px 22px}
+.ev-date{font-family:var(--mf);font-size:8px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--go);margin-bottom:6px}
+.ev-name{font-family:var(--hf);font-size:20px;font-weight:700;color:var(--wh);
+  margin-bottom:6px;line-height:1.2}
+.ev-meta{font-family:var(--mf);font-size:8px;letter-spacing:1.5px;color:var(--mu)}
+
+/* MODELS SECTION */
+.models-hero{height:560px;position:relative;overflow:hidden}
+.models-hero img{width:100%;height:100%;object-fit:cover;filter:brightness(0.6) contrast(1.1)}
+.models-hero-ov{position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(10,10,10,0.9) 0%,rgba(10,10,10,0.2) 60%)}
+.models-hero-content{position:absolute;left:0;top:50%;transform:translateY(-50%);
+  padding:0 80px;max-width:580px}
+.models-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim);margin-top:0}
+.model-card{background:var(--card);overflow:hidden;aspect-ratio:3/4;position:relative}
+.model-card img{width:100%;height:100%;object-fit:cover;display:block;
+  filter:brightness(0.85);transition:transform 600ms var(--ease)}
+.model-card:hover img{transform:scale(1.05)}
+.model-card-ov{position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(10,10,10,0.8));
+  padding:24px 16px 14px;font-family:var(--mf);font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--n4)}
+
+/* PRIVATE PARTY */
+.party-types{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
+  background:var(--gdim);border:1px solid var(--gdim);margin-bottom:48px}
+.party-type{background:var(--card);padding:28px 18px;text-align:center;cursor:pointer;
+  transition:background 200ms}
+.party-type:hover{background:var(--elev)}
+.party-type-ico{font-family:var(--df);font-size:36px;color:var(--go);margin-bottom:10px;line-height:1}
+.party-type h4{font-family:var(--mf);font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--wh);margin-bottom:4px}
+.party-type p{font-size:11px;color:var(--mu)}
+
+/* CONTACT */
+.contact-split{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.chat-grid{display:flex;flex-direction:column;gap:10px}
+.chat-btn{display:flex;align-items:center;gap:16px;padding:18px 20px;
+  text-decoration:none;border:1px solid var(--gdim);background:var(--card);
+  transition:border-color 200ms,background 200ms}
+.chat-btn:hover{background:var(--elev);border-color:var(--gmid)}
+.chat-btn svg{width:26px;height:26px;flex-shrink:0}
+.chat-btn .cbt{flex:1}
+.chat-btn .cbl{font-family:var(--mf);font-size:8px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--n4);display:block;margin-bottom:2px}
+.chat-btn .cbv{font-size:14px;color:var(--wh);font-weight:500}
+.chat-btn .arr{font-family:var(--mf);font-size:14px;color:var(--go)}
+.chat-btn.prim{background:var(--rd);border-color:var(--rd)}
+.chat-btn.prim .cbl{color:rgba(255,255,255,0.6)}
+.info-block{background:var(--card);border:1px solid var(--gdim);padding:32px}
+.info-block h4{font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--go);margin-bottom:16px}
+.info-block p{font-size:14px;color:var(--n4);line-height:1.8;margin-bottom:20px}
+.info-block strong{color:var(--wh)}
+
+/* FOOTER */
+footer{background:var(--bk);border-top:1px solid var(--gdim);padding:64px 0 36px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand-name{font-family:var(--df);font-size:28px;font-weight:300;color:var(--wh);
+  margin:14px 0 8px}
+.footer-tag{font-family:var(--mf);font-size:8px;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--mu)}
+.footer-col h4{font-family:var(--mf);font-size:9px;letter-spacing:3px;
+  text-transform:uppercase;color:var(--go);margin-bottom:16px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:8px}
+.footer-col li a{font-size:13px;color:var(--n4);text-decoration:none;transition:color 200ms}
+.footer-col li a:hover{color:var(--wh)}
+.footer-bottom{border-top:1px solid var(--gdim);padding-top:24px;
+  display:flex;justify-content:space-between;
+  font-family:var(--mf);font-size:8px;letter-spacing:1.5px;color:var(--mu)}
+
+/* ORNAMENT */
+.orn{display:flex;align-items:center;gap:14px;margin:8px 0 28px}
+.orn .l{flex:1;height:1px;background:var(--gdim)}
+.orn .d{color:var(--go);font-size:9px}
+
+/* CHAT FLOAT */
+.float-chat{position:fixed;bottom:28px;right:28px;z-index:300;
+  display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.float-btn{display:flex;align-items:center;gap:10px;padding:11px 16px;
+  text-decoration:none;color:var(--wh);font-family:var(--mf);font-size:9px;
+  letter-spacing:2px;text-transform:uppercase;transition:transform 200ms;
+  box-shadow:0 4px 20px rgba(0,0,0,0.5)}
+.float-btn:hover{transform:translateX(-4px)}
+.float-btn svg{width:18px;height:18px;flex-shrink:0}
+.float-main{background:var(--rd)}
+
+/* FADE IN */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fi{opacity:0;animation:fadeUp 600ms var(--ease) forwards}
+.fi.d1{animation-delay:0.1s}.fi.d2{animation-delay:0.22s}.fi.d3{animation-delay:0.34s}.fi.d4{animation-delay:0.46s}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a class="nav-brand" href="#" onclick="goto('home')">
+    <svg viewBox="0 0 100 120" fill="#F5F0EB">
+      <ellipse cx="33" cy="28" rx="9" ry="26" transform="rotate(-8 33 28)"/>
+      <ellipse cx="67" cy="28" rx="9" ry="26" transform="rotate(8 67 28)"/>
+      <ellipse cx="50" cy="72" rx="28" ry="26"/>
+      <polygon points="50,100 38,108 50,104 62,108"/>
+      <ellipse cx="50" cy="102" rx="4" ry="3"/>
+    </svg>
+    <span class="nav-brand-name">The PIMP Bangkok</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="goto('live-zone')" data-page="live-zone">Live Zone</a></li>
+    <li><a onclick="goto('vip-rooms')" data-page="vip-rooms">VIP Rooms</a></li>
+    <li><a onclick="goto('models')" data-page="models">Models</a></li>
+    <li><a onclick="goto('events')" data-page="events">Events</a></li>
+    <li><a onclick="goto('private-party')" data-page="private-party">Private Party</a></li>
+    <li><a onclick="goto('contact')" data-page="contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="https://www.pimpbangkok.com/book" target="_blank">Book Now</a>
+</nav>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/6400892c60a1355f7b30ff69_sexy_thai_party_girls_the_pimp_bangkok_gentlemen_clubs_thailand.webp')"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="hero-eyebrow fi">Bangkok · #1 Gentlemen's Club · Est. 2024</span>
+        <h1 class="hero-title fi d1">Where Bangkok's<br><em>Wildest Nights</em><br>Begin</h1>
+        <p class="hero-sub fi d2">200+ beautiful Thai girls. Live bands every night. VIP rooms with complete privacy.</p>
+        <div class="hero-btns fi d3">
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Chat with Our VIP Host</a>
+          <a class="btn-go" onclick="goto('live-zone')">Explore the Club</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker">
+    <span class="tick-track">
+      Open 7 Nights a Week<span class="d">◆</span>Live Bands from 10PM<span class="d">◆</span>200+ Thai Party Girls<span class="d">◆</span>VIP Rooms Available<span class="d">◆</span>No Membership Required<span class="d">◆</span>496 Rotchanamin, Wang Thonglang<span class="d">◆</span>Open 7 Nights a Week<span class="d">◆</span>Live Bands from 10PM<span class="d">◆</span>200+ Thai Party Girls<span class="d">◆</span>VIP Rooms Available<span class="d">◆</span>No Membership Required<span class="d">◆</span>496 Rotchanamin, Wang Thonglang<span class="d">◆</span>
+    </span>
+  </div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="two-col">
+        <div>
+          <div class="eyebrow">The Experience</div>
+          <h2 class="stitle">Drink. Party.<br><em>Go Wild.</em></h2>
+          <p class="sbody">The PIMP is Bangkok's most unique adult clubbing experience. Our <strong>Live Zone</strong> hosts three live bands every night from 10PM to 3AM, plus erotic shows and top DJs on weekends. Or escape to one of our massive <strong>VIP Rooms</strong> — the largest in Bangkok — where you party until late with complete privacy and as many girls as you want.</p>
+          <div style="margin-top:28px;display:flex;gap:12px">
+            <a class="btn-rd" onclick="goto('live-zone')">See Live Zone</a>
+            <a class="btn-go" onclick="goto('vip-rooms')">See VIP Rooms</a>
+          </div>
+        </div>
+        <div class="img-block">
+          <div class="img-ph" style="height:480px">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/64590b0bb836f66cf6ba68a2_back_thai_bikini_models_the_pimp_bangkok.webp" alt="The PIMP Bangkok models">
+          </div>
+          <div class="img-accent"></div>
+        </div>
+      </div>
+      <hr class="rule">
+      <div class="feat-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="feat"><div class="feat-ico">◆</div><h4>Live Zone</h4><p>3 live bands nightly, DJs, erotic shows</p></div>
+        <div class="feat"><div class="feat-ico">◆</div><h4>VIP Rooms</h4><p>From 3,500 THB · complete privacy</p></div>
+        <div class="feat"><div class="feat-ico">◆</div><h4>200+ Girls</h4><p>PIMP Cats ready every single night</p></div>
+        <div class="feat"><div class="feat-ico">◆</div><h4>No Membership</h4><p>Walk in welcome, 7 nights a week</p></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quote-band">
+    <div class="wrap">
+      <span class="quote-mark">"</span>
+      <p class="quote-text">Bangkok's most unique and exciting way to party — worldwide.</p>
+      <span class="quote-attr">— Bangkok Nightlife Magazine</span>
+    </div>
+  </div>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="stitle">Your Perfect Night, <em>Step by Step</em></h2>
+      <div class="steps">
+        <div class="step"><div class="step-n">1</div><h3>Plan Your Experience</h3><p>Choose Live Zone for the full club atmosphere, or go straight to a private VIP Room. Many groups do both.</p></div>
+        <div class="step"><div class="step-n">2</div><h3>Arrive &amp; Check In</h3><p>Our team greets you, shows you around, and assigns a personal VIP Host for the night.</p></div>
+        <div class="step"><div class="step-n">3</div><h3>Order Drinks</h3><p>5-star bottle service. Order a liquor package for the best deal. The girls drink with you.</p></div>
+        <div class="step"><div class="step-n">4</div><h3>Find Your Dream Girl</h3><p>Tell your host what you like. She brings the girls to your table — they stay all night.</p></div>
+        <div class="step"><div class="step-n">5</div><h3>Go Wild.</h3><p>No rules. No limits. Party, drink, dance. Let the night take over completely.</p></div>
+      </div>
+      <div style="text-align:center;margin-top:40px">
+        <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Chat with a Host — Plan Your Night</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ LIVE ZONE ══════════ -->
+<div class="page" id="page-live-zone">
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/69d62283f7c42fe1e30aac14_DSC03282.jpeg')"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Live Music · Shows · Girls</span>
+        <h1 class="hero-title">Girl Gone<br><em>Wild</em></h1>
+        <p class="hero-sub">The Live Zone is exotic, like nothing you've ever experienced. Bikini girls everywhere, live bands every night, and erotic shows that will leave you breathless.</p>
+        <div class="hero-btns">
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Chat with Our VIP Host</a>
+          <a class="btn-go" onclick="goto('vip-rooms')">Explore VIP Rooms</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="eyebrow">The Live Zone</div>
+      <h2 class="stitle">Drink. Party. <em>Go Wild.</em></h2>
+      <div class="two-col" style="gap:64px">
+        <p class="sbody">You'll see bikini girls everywhere — walking, dancing, and partying on and off the stage, ready to seduce you. Drink and dance with the hottest Thai models while listening to <strong>live bands performing international and Thai classics</strong>. Watch stunning bikini shows and sexy performances by the world-famous PIMP Cats.<br><br>International quality musicians and DJs perform every night to entertain you and the ladies.</p>
+        <div class="feat-grid" style="grid-template-columns:1fr 1fr;margin-top:0">
+          <div class="feat"><div class="feat-ico">◆</div><h4>3 Live Bands</h4><p>Every night from 10PM to 3AM — Thai &amp; international hits</p></div>
+          <div class="feat"><div class="feat-ico">◆</div><h4>Sexy Shows</h4><p>Cosplay theme parties &amp; erotic shows every weekend</p></div>
+          <div class="feat"><div class="feat-ico">◆</div><h4>Top DJs</h4><p>Local &amp; international DJs every night</p></div>
+          <div class="feat"><div class="feat-ico">◆</div><h4>200+ Girls</h4><p>PIMP Cats at your table all night</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="eyebrow">Seating</div>
+      <h2 class="stitle">Two Ways to <em>Experience</em> the Zone</h2>
+      <div class="two-col">
+        <div>
+          <div style="background:var(--card);border:1px solid var(--gdim);overflow:hidden;margin-bottom:20px">
+            <div style="height:260px;overflow:hidden"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/695a61a1ac968c6b7384fb92_pimp-161.jpeg" alt="VIP Tables" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8)"></div>
+            <div style="padding:20px 22px">
+              <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:8px">VIP Tables</div>
+              <p style="font-size:14px;color:var(--n4);line-height:1.65;font-weight:300">All tables are close to the stage — perfect view of singers, dancers, and showgirls. Book in advance and we'll block a row sized for your group.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="background:var(--card);border:1px solid var(--gdim);overflow:hidden">
+            <div style="height:260px;overflow:hidden"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/645927defc6390397f36e4a0_large_sofa_the_pimp_bangkok_live_zone.webp" alt="VIP Sofas" style="width:100%;height:100%;object-fit:cover;filter:brightness(0.8)"></div>
+            <div style="padding:20px 22px">
+              <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:8px">VIP Sofas</div>
+              <p style="font-size:14px;color:var(--n4);line-height:1.65;font-weight:300">The best and most comfortable seating in the club. The harem sofa even has curtains you can close for more privacy with the models.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="eyebrow">Pricing</div>
+      <h2 class="stitle">What Does It <em>Cost?</em></h2>
+      <div class="two-col" style="align-items:start">
+        <div>
+          <table class="price-table">
+            <tr><th>Item</th><th>Price (THB)</th></tr>
+            <tr><td>Bottle (starting from)</td><td class="price-tag">5,500</td></tr>
+            <tr><td>Girl — 1st hour</td><td class="price-tag">2,200</td></tr>
+            <tr><td>Girl — each additional hour</td><td class="price-tag">1,100</td></tr>
+            <tr><td>Member discount on girls</td><td class="price-tag">Save 10%</td></tr>
+            <tr><td>Host fee</td><td class="price-tag">1,000</td></tr>
+          </table>
+        </div>
+        <div>
+          <div style="background:var(--card);border:1px solid var(--gdim);padding:28px">
+            <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:14px">Example — VIP Table for 4</div>
+            <div style="font-size:13px;color:var(--n4);line-height:2">
+              4 Girls (2 hours) — 12,000 THB<br>
+              Premium Liquor Package (5 bottles) — 20,000 THB<br>
+              Host Fee — 1,000 THB
+            </div>
+            <div style="border-top:1px solid var(--gdim);margin-top:16px;padding-top:16px">
+              <span style="font-family:var(--mf);font-size:9px;letter-spacing:2px;color:var(--go)">TOTAL</span>
+              <span style="font-family:var(--df);font-size:40px;font-weight:300;color:var(--gol);display:block;line-height:1">33,000 THB</span>
+            </div>
+            <div style="margin-top:20px"><a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Chat to Plan Your Night</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ VIP ROOMS ══════════ -->
+<div class="page" id="page-vip-rooms">
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fd01d2a259b3c6ae42_private_room_party_room_1_the_pimp_bangkok.webp')"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Complete Privacy · KTV · Jacuzzi</span>
+        <h1 class="hero-title">Get Wild In<br><em>Private</em></h1>
+        <p class="hero-sub">The best-equipped VIP rooms in Bangkok. From intimate rooms for 4 to private pool zones for 150 — your own nightclub for the night.</p>
+        <div class="hero-btns">
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Book a Room via Line</a>
+          <a class="btn-go" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank">WhatsApp Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="eyebrow">Special Offer</div>
+      <div style="background:var(--card);border:1px solid var(--go);padding:20px 28px;display:flex;align-items:center;gap:24px;margin-bottom:48px">
+        <span style="font-family:var(--df);font-size:40px;color:var(--go);line-height:1">◆</span>
+        <div>
+          <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:4px">Exclusive Deals</div>
+          <p style="font-size:14px;color:var(--wh)">All Party Rooms include a <strong>Private DJ at No Charge.</strong> Save <strong>40%</strong> when you move to a room after 2:00AM. Members receive a complimentary VIP room credit.</p>
+        </div>
+      </div>
+      <div class="eyebrow">Choose Your Room</div>
+      <h2 class="stitle" style="margin-bottom:32px">Private Rooms <em>&amp; Suites</em></h2>
+      <div class="room-grid">
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fd01d2a259b3c6ae42_private_room_party_room_1_the_pimp_bangkok.webp" alt="Party Room 1"><div class="room-price">10,000 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 30 guys</span><div class="room-name">Party Room 1</div><div class="room-feats">Min. 8 girls · Private pool table &amp; DJ · Jacuzzi</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fd5c7a5d9d57990ed2_private_room_party_room_2_the_pimp_bangkok.webp" alt="Party Room 2"><div class="room-price">9,000 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 10 guys</span><div class="room-name">Party Room 2</div><div class="room-feats">Min. 7 girls · Private pool table &amp; DJ · Jacuzzi</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fd9250bce76aa2a3cb_private_room_party_room_4_the_pimp_bangkok.webp" alt="Party Room 4"><div class="room-price">10,000 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 30 guys</span><div class="room-name">Party Room 4</div><div class="room-feats">Dance floor · Shower show · Pool zone access</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fd9250bce76aa2a3a3_pool_zone_the_pimp_bangkok.webp" alt="Pool Zone"><div class="room-price">15,000 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 150 people</span><div class="room-name">Pool Zone</div><div class="room-feats">Private pool · Private stage · Exclusive services on request</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fde8ff6864d156939d_large_vip_room_the_pimp_bangkok.webp" alt="Large VIP"><div class="room-price">6,000 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 8 guys</span><div class="room-name">Large VIP</div><div class="room-feats">Min. 5 girls · Private pool table</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799fce8ff6864d1569361_medium_vip_room_the_pimp_bangkok.webp" alt="Medium VIP"><div class="room-price">4,500 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 6 guys</span><div class="room-name">Medium VIP</div><div class="room-feats">Min. 4 girls · Karaoke system</div></div>
+        </div>
+        <div class="room-card">
+          <div class="room-img"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/646799feccb7224113373d50_small_vip_room_the_pimp_bangkok.webp" alt="Small VIP"><div class="room-price">3,500 THB</div></div>
+          <div class="room-body"><span class="room-tag">Up to 4 guys</span><div class="room-name">Small VIP</div><div class="room-feats">Min. 2 girls · Perfect for solo &amp; pairs</div></div>
+        </div>
+        <div class="room-card" style="background:var(--void)">
+          <div style="height:180px;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:var(--df);font-size:48px;color:var(--go)">◆</span>
+          </div>
+          <div class="room-body">
+            <span class="room-tag">All Rooms Include</span>
+            <div class="room-name" style="font-size:14px">50,000-song KTV · 55" TV · Hi-fi Sound · Private Waiter · 100% Privacy</div>
+          </div>
+        </div>
+      </div>
+      <hr class="rule">
+      <div class="two-col" style="align-items:start">
+        <div>
+          <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:16px">Example Cost — Party Room 1 for 10 Guys</div>
+          <table class="price-table">
+            <tr><th>Item</th><th>THB</th></tr>
+            <tr><td>Liquor Package (5 bottles)</td><td class="price-tag">20,000</td></tr>
+            <tr><td>Room Rental</td><td class="price-tag">10,000</td></tr>
+            <tr><td>10 girls (2 hours)</td><td class="price-tag">40,000</td></tr>
+            <tr><td>Host Fee</td><td class="price-tag">2,000</td></tr>
+            <tr><td><strong style="color:var(--wh)">Total</strong></td><td><span style="font-family:var(--df);font-size:24px;color:var(--gol)">72,000</span></td></tr>
+          </table>
+          <div style="font-family:var(--mf);font-size:8px;color:var(--mu);margin-top:8px;letter-spacing:1px">= 5,095 THB per person for 2 hours. Girl prices: 2,000 THB/1st hr, 1,000 THB/additional hr.</div>
+        </div>
+        <div>
+          <div style="background:var(--card);border:1px solid var(--gdim);padding:28px">
+            <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:16px">Book Your Room</div>
+            <p style="font-size:14px;color:var(--n4);line-height:1.7;margin-bottom:20px">Contact our VIP hosts for a free quote tailored to your group size, date, and preferences.</p>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank" style="display:block;text-align:center">Chat on Line</a>
+              <a class="btn-go" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank" style="display:block;text-align:center">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ MODELS ══════════ -->
+<div class="page" id="page-models">
+  <div class="models-hero" style="margin-top:68px">
+    <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/64591228e80ddfd8b12bc23f_selection_thai_girls_gentlemens_club_the_pimp_bangkok.webp" alt="PIMP Cats">
+    <div class="models-hero-ov"></div>
+    <div class="models-hero-content">
+      <div class="eyebrow">The PIMP Cats</div>
+      <h1 class="stitle" style="font-size:clamp(40px,5vw,72px)">200+ Gorgeous<br><em>Thai Girls</em></h1>
+      <p style="font-size:16px;color:var(--n4);line-height:1.65;font-weight:300;margin-bottom:28px">Sexy, fun, charming, and each with their own unique personality — your perfect party companion for the night.</p>
+      <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Chat to Meet the Girls</a>
+    </div>
+  </div>
+  <div class="models-grid">
+    <div class="model-card"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/64590b0bb836f66cf6ba68a2_back_thai_bikini_models_the_pimp_bangkok.webp" alt="Model"><div class="model-card-ov">Bikini Models</div></div>
+    <div class="model-card"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/645912274c09271a07bab7ed_selection_thai_bikini_models_pool_zone_the_pimp_bangkok.webp" alt="Model"><div class="model-card-ov">Pool Zone</div></div>
+    <div class="model-card"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/645912274a44594d5ea87193_thai_girl_french_maid_vip_room_the_pimp_bangkok.webp" alt="Model"><div class="model-card-ov">VIP Room</div></div>
+    <div class="model-card"><img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/64591228dff2dc5d11e1caba_two_thai_girls_drinking_cocktails_the_pimp_bangkok.webp" alt="Model"><div class="model-card-ov">Cocktail Hour</div></div>
+  </div>
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="two-col">
+        <div>
+          <div class="eyebrow">Meet the PIMP Cats</div>
+          <h2 class="stitle">Your Dream Girl <em>Awaits</em></h2>
+          <p class="sbody">Watch them perform on stage, invite your favorites to your table or private room, and let things get out of control. Every girl is different — tell your VIP Host your type, and she'll introduce you personally.<br><br>The girls will <strong>dance, play games, flirt</strong>, and become your girlfriend for the night. They stay with your group — no running around or asking for more drinks.</p>
+          <div style="margin-top:28px"><a class="btn-rd" onclick="goto('vip-rooms')">Reserve a Private Room</a></div>
+        </div>
+        <div>
+          <div class="feat-grid" style="grid-template-columns:1fr 1fr;margin-top:0">
+            <div class="feat"><div class="feat-ico">◆</div><h4>200+ Girls</h4><p>Available every single night</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>All Types</h4><p>Tell your host your preference</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>They Stay</h4><p>Your girls stick to your table all night</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>Stage Shows</h4><p>Watch them perform before joining you</p></div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--gdim);padding:24px;margin-top:1px">
+            <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:10px">Girl Pricing</div>
+            <div style="font-size:14px;color:var(--n4);line-height:2">Live Zone: from <span style="color:var(--gol);font-family:var(--mf)">2,200 THB</span> / 1st hr<br>VIP Rooms: from <span style="color:var(--gol);font-family:var(--mf)">2,000 THB</span> / 1st hr<br>Additional hours: <span style="color:var(--gol);font-family:var(--mf)">1,000–1,100 THB</span> / hr</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ EVENTS ══════════ -->
+<div class="page" id="page-events">
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/68963d708dd61ae7ffa2c860_25660417-O_O08473.jpg')"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Weekly Events · Special Shows</span>
+        <h1 class="hero-title">Every Night Is<br><em>a Party</em></h1>
+        <p class="hero-sub">Themed nights, cosplay parties, special performances, and the world's most exotic live shows — every single week.</p>
+        <div class="hero-btns">
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Get Party Alerts via Line</a>
+          <a class="btn-go" href="https://www.pimpbangkok.com/book" target="_blank">Reserve Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="eyebrow">Upcoming Events</div>
+      <h2 class="stitle" style="margin-bottom:32px">What's On <em>This Week</em></h2>
+      <div class="events-grid">
+        <div class="ev-card">
+          <div class="ev-img" style="background:linear-gradient(135deg,#1a0f0a,#2a1510)">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/68964ce7641993e729466b3e_barbie.jpg" alt="Event">
+            <span class="ev-badge bdg-rd">Tonight</span>
+          </div>
+          <div class="ev-body">
+            <div class="ev-date">Fri — Every Friday</div>
+            <div class="ev-name">Cosplay Theme Night</div>
+            <div class="ev-meta">Erotic shows · Sexy costumes · DJ from midnight</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-img" style="background:linear-gradient(135deg,#0f0f1a,#1a1525)">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/69d51b9abce1d9e54226464b_1LP06722.JPG" alt="Event">
+            <span class="ev-badge bdg-go">Sat</span>
+          </div>
+          <div class="ev-body">
+            <div class="ev-date">Sat — Every Saturday</div>
+            <div class="ev-name">Wild Saturday Night</div>
+            <div class="ev-meta">Top DJs · Late night · Foam shows available</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-img" style="background:linear-gradient(135deg,#0a1510,#0f201a)">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/64591228fc639020dd355c38_selection_thai_girls_black_lingerie_live_music_zone_the_pimp_bangkok.webp" alt="Event">
+          </div>
+          <div class="ev-body">
+            <div class="ev-date">Sun–Thu — Every Night</div>
+            <div class="ev-name">Live Band Night</div>
+            <div class="ev-meta">3 bands · 10PM–3AM · Request your songs</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-img" style="background:linear-gradient(135deg,#1a0a0a,#1a1a0a)">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/68963cf943c3fd11aed65d57_private%20party.jpg" alt="Event">
+          </div>
+          <div class="ev-body">
+            <div class="ev-date">Any Night — Private</div>
+            <div class="ev-name">Private Party Night</div>
+            <div class="ev-meta">VIP Room · Custom theme · Your music</div>
+          </div>
+        </div>
+        <div class="ev-card">
+          <div class="ev-img" style="background:linear-gradient(135deg,#0a0a1a,#151525)">
+            <img src="https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/645912273acb67ba32229939_group_sexy_thai_girls_drinking_the_pimp_bangkok.webp" alt="Event">
+            <span class="ev-badge bdg-go">Monthly</span>
+          </div>
+          <div class="ev-body">
+            <div class="ev-date">Monthly Special</div>
+            <div class="ev-name">International Guest DJ</div>
+            <div class="ev-meta">World-class DJ · Full production · VIP table priority</div>
+          </div>
+        </div>
+        <div class="ev-card" style="background:var(--void);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px;text-align:center">
+          <span style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:12px">Never Miss a Party</span>
+          <p style="font-size:14px;color:var(--n4);line-height:1.65;margin-bottom:20px">Sign up via Line to receive weekly party alerts and event announcements.</p>
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Add on Line</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ PRIVATE PARTY ══════════ -->
+<div class="page" id="page-private-party">
+  <section class="hero">
+    <div class="hero-bg" style="background-image:url('https://cdn.prod.website-files.com/5f972aac086b5ecfd0538315/645912274c09271a07bab7ed_selection_thai_bikini_models_pool_zone_the_pimp_bangkok.webp')"></div>
+    <div class="hero-ov"></div>
+    <div class="wrap">
+      <div class="hero-content">
+        <span class="hero-eyebrow">Birthday · Bachelor · Corporate</span>
+        <h1 class="hero-title">Organize Your<br><em>Perfect Party</em></h1>
+        <p class="hero-sub">Whether it's a birthday, bachelor party, pool party, or corporate event — The PIMP is the perfect venue. Together we'll make your event unforgettable.</p>
+        <div class="hero-btns">
+          <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank">Plan with Our Team</a>
+          <a class="btn-go" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank">WhatsApp for Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="sec dark">
+    <div class="wrap">
+      <div class="eyebrow">Party Types</div>
+      <h2 class="stitle" style="margin-bottom:32px">What Are You <em>Celebrating?</em></h2>
+      <div class="party-types">
+        <div class="party-type"><div class="party-type-ico">🎂</div><h4>Birthday Party</h4><p>Custom décor, cake, special shows</p></div>
+        <div class="party-type"><div class="party-type-ico">💍</div><h4>Bachelor Party</h4><p>Bangkok's wildest send-off</p></div>
+        <div class="party-type"><div class="party-type-ico">🏊</div><h4>Pool Party</h4><p>Private pool zone up to 100 guests</p></div>
+        <div class="party-type"><div class="party-type-ico">💼</div><h4>Business Meeting</h4><p>Private, discrete, fully catered</p></div>
+        <div class="party-type"><div class="party-type-ico">🎉</div><h4>Corporate Event</h4><p>Up to 150 guests in pool zone</p></div>
+      </div>
+      <div class="two-col" style="margin-top:64px;align-items:start">
+        <div>
+          <div class="eyebrow">What We Provide</div>
+          <h2 class="stitle" style="font-size:36px">Everything You Need <em>for an Epic Night</em></h2>
+          <div class="feat-grid" style="grid-template-columns:1fr 1fr;margin-top:20px">
+            <div class="feat"><div class="feat-ico">◆</div><h4>Private DJ</h4><p>Included in all Party Rooms</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>Custom Stage Show</h4><p>Erotic performances, foam shows</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>Jacuzzi &amp; Rain Shower</h4><p>In selected rooms</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>Catering Available</h4><p>Thai food, sushi, cocktails, whisky</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>200+ Girls</h4><p>Choose as many as you want</p></div>
+            <div class="feat"><div class="feat-ico">◆</div><h4>Complete Privacy</h4><p>100% soundproof, no strangers</p></div>
+          </div>
+        </div>
+        <div>
+          <div style="background:var(--card);border:1px solid var(--go);padding:32px">
+            <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:16px">Plan Your Event</div>
+            <p style="font-size:15px;color:var(--n4);line-height:1.7;margin-bottom:24px">Have a special request or need a custom quote for a large group? Our event team is available 24/7 to design the perfect night for you and your crew.</p>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <a class="btn-rd" href="https://lin.ee/Bdeedo8" target="_blank" style="text-align:center;display:block">Line — Fastest Reply</a>
+              <a class="btn-go" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank" style="text-align:center;display:block">WhatsApp</a>
+              <a href="tel:+66873603666" style="font-family:var(--mf);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--n4);text-decoration:none;text-align:center;padding:14px;border:1px solid var(--gdim)">Call +66 87 360 3666</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div class="page" id="page-contact">
+  <section class="sec" style="margin-top:68px">
+    <div class="wrap">
+      <div class="eyebrow">Get in Touch</div>
+      <h2 class="stitle" style="margin-bottom:8px">Chat With Our <em>VIP Hosts</em></h2>
+      <p class="sbody" style="margin-bottom:48px">Our team is online 24/7. Choose your preferred channel and we'll plan your perfect night in minutes.</p>
+      <div class="contact-split">
+        <div>
+          <div style="font-family:var(--mf);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--go);margin-bottom:14px">Chat Channels</div>
+          <div class="chat-grid">
+            <a class="chat-btn prim" href="https://lin.ee/Bdeedo8" target="_blank">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+              <div class="cbt"><span class="cbl">Line Official</span><span class="cbv">Fastest reply — Add as friend</span></div><span class="arr">→</span>
+            </a>
+            <a class="chat-btn" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank">
+              <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <div class="cbt"><span class="cbl">WhatsApp</span><span class="cbv">+66 87 360 3666</span></div><span class="arr" style="color:var(--n4)">→</span>
+            </a>
+            <a class="chat-btn" href="https://t.me/pimpbangkokbot" target="_blank">
+              <svg viewBox="0 0 24 24" fill="#26A5E4"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <div class="cbt"><span class="cbl">Telegram</span><span class="cbv">@pimpbangkokbot</span></div><span class="arr" style="color:var(--n4)">→</span>
+            </a>
+            <a class="chat-btn" href="https://m.me/thepimpbangkok" target="_blank">
+              <svg viewBox="0 0 24 24" fill="#0084FF"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.3 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.26L19.752 8l-6.561 6.963z"/></svg>
+              <div class="cbt"><span class="cbl">Facebook Messenger</span><span class="cbv">The PIMP Bangkok</span></div><span class="arr" style="color:var(--n4)">→</span>
+            </a>
+            <a class="chat-btn" href="tel:+66873603666">
+              <svg viewBox="0 0 24 24" fill="none" stroke="var(--go)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+              <div class="cbt"><span class="cbl">Call Direct</span><span class="cbv">+66 87 360 3666</span></div><span class="arr" style="color:var(--n4)">→</span>
+            </a>
+          </div>
+        </div>
+        <div>
+          <div class="info-block" style="margin-bottom:16px">
+            <h4>Visit Us</h4>
+            <p><strong>496 Rotchanamin Alley</strong><br>@ Pracha Uthit Road<br>Wang Thonglang, Bangkok 10310<br>Thailand</p>
+            <a class="btn-go" href="https://g.page/thepimp?share" target="_blank" style="display:block;text-align:center">Get Directions on Google Maps</a>
+          </div>
+          <div class="info-block">
+            <h4>Opening Hours</h4>
+            <p><strong>Open 7 Nights a Week</strong><br>Live Zone: 10:00 PM – 3:00 AM<br>VIP Rooms: 10:00 PM – Late<br><strong>No closing time for private rooms</strong></p>
+            <a class="btn-rd" href="https://www.pimpbangkok.com/book" target="_blank" style="display:block;text-align:center">Book Online</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER (shared) -->
+<footer id="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <svg height="32" viewBox="0 0 100 120" fill="#F5F0EB" opacity="0.7">
+          <ellipse cx="33" cy="28" rx="9" ry="26" transform="rotate(-8 33 28)"/>
+          <ellipse cx="67" cy="28" rx="9" ry="26" transform="rotate(8 67 28)"/>
+          <ellipse cx="50" cy="72" rx="28" ry="26"/>
+          <polygon points="50,100 38,108 50,104 62,108"/>
+          <ellipse cx="50" cy="102" rx="4" ry="3"/>
+        </svg>
+        <div class="footer-brand-name">The PIMP Bangkok</div>
+        <div class="footer-tag">Nightclub · Est. 2024</div>
+        <div style="margin-top:16px;font-size:12px;color:var(--mu);line-height:1.7">496 Rotchanamin Alley<br>Wang Thonglang, Bangkok 10310</div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a onclick="goto('live-zone')">Live Zone</a></li>
+          <li><a onclick="goto('vip-rooms')">VIP Rooms</a></li>
+          <li><a onclick="goto('models')">Models</a></li>
+          <li><a onclick="goto('events')">Events</a></li>
+          <li><a onclick="goto('private-party')">Private Party</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Info</h4>
+        <ul>
+          <li><a href="https://www.pimpbangkok.com/prices" target="_blank">Prices</a></li>
+          <li><a href="https://www.pimpbangkok.com/packages" target="_blank">Packages</a></li>
+          <li><a href="https://www.pimpbangkok.com/menu" target="_blank">Menu</a></li>
+          <li><a href="https://www.pimpbangkok.com/faq" target="_blank">FAQ</a></li>
+          <li><a href="https://www.pimpbangkok.com/gallery" target="_blank">Gallery</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://lin.ee/Bdeedo8" target="_blank">Line Official</a></li>
+          <li><a href="https://api.whatsapp.com/send?phone=66873603666" target="_blank">WhatsApp</a></li>
+          <li><a href="https://t.me/pimpbangkokbot" target="_blank">Telegram</a></li>
+          <li><a href="tel:+66873603666">+66 87 360 3666</a></li>
+          <li><a href="https://g.page/thepimp?share" target="_blank">Directions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© The PIMP® Bangkok. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Entry</span>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CHAT BUTTONS -->
+<div class="float-chat">
+  <a class="float-btn float-main" href="https://lin.ee/Bdeedo8" target="_blank">
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    Chat with Host
+  </a>
+  <a class="float-btn" style="background:#25D366" href="https://api.whatsapp.com/send?phone=66873603666&text=Hey%20there,%20lets%20chat%20about%20The%20PIMP%20Club%20Bangkok" target="_blank">
+    <svg viewBox="0 0 24 24" fill="white" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<script>
+const pages = ['home','live-zone','vip-rooms','models','events','private-party','contact'];
+
+function goto(id) {
+  pages.forEach(p => {
+    const el = document.getElementById('page-'+p);
+    if (el) el.classList.toggle('active', p === id);
+  });
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === id);
+  });
+  window.scrollTo({top:0,behavior:'instant'});
+  location.hash = id === 'home' ? '' : id;
+  // re-trigger animations
+  document.querySelectorAll('.fi').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+}
+
+// Handle hash on load
+window.addEventListener('DOMContentLoaded', () => {
+  const h = location.hash.replace('#','');
+  if (h && pages.includes(h)) goto(h);
+});
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Tweaks
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{"accentColor":"#D4002A","goldColor":"#C49A3C"}/*EDITMODE-END*/;
+let tw = {...TWEAK_DEFAULTS};
+function applyTweaks(t) {
+  document.documentElement.style.setProperty('--rd', t.accentColor);
+  document.documentElement.style.setProperty('--go', t.goldColor);
+}
+applyTweaks(tw);
+
+let tweakPanel;
+window.addEventListener('message', e => {
+  if (e.data?.type==='__activate_edit_mode') showTweaks();
+  if (e.data?.type==='__deactivate_edit_mode') hideTweaks();
+});
+window.parent.postMessage({type:'__edit_mode_available'},'*');
+
+function showTweaks(){
+  if(tweakPanel){tweakPanel.style.display='block';return}
+  tweakPanel=document.createElement('div');
+  tweakPanel.style.cssText='position:fixed;bottom:100px;right:28px;z-index:9999;background:#1A1A1A;border:1px solid rgba(196,154,60,0.5);padding:18px;width:220px;font-family:DM Mono,monospace;';
+  tweakPanel.innerHTML=`<div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#C49A3C;margin-bottom:14px">Tweaks</div>
+  <div style="margin-bottom:12px"><label style="font-size:8px;letter-spacing:2px;color:#8A8480;text-transform:uppercase;display:block;margin-bottom:6px">Accent Color</label>
+  <div style="display:flex;gap:8px">${['#D4002A','#A80020','#B00000','#CC0033'].map(c=>`<div onclick="setA('${c}')" style="width:22px;height:22px;background:${c};cursor:pointer;outline:${c===tw.accentColor?'2px solid #fff':'none'}"></div>`).join('')}<input type="color" value="${tw.accentColor}" oninput="setA(this.value)" style="width:22px;height:22px;padding:0;border:none;cursor:pointer"></div></div>
+  <div><label style="font-size:8px;letter-spacing:2px;color:#8A8480;text-transform:uppercase;display:block;margin-bottom:6px">Gold Tone</label>
+  <div style="display:flex;gap:8px">${['#C49A3C','#E8C97A','#A07828','#D4B060'].map(c=>`<div onclick="setG('${c}')" style="width:22px;height:22px;background:${c};cursor:pointer;outline:${c===tw.goldColor?'2px solid #fff':'none'}"></div>`).join('')}</div></div>`;
+  document.body.appendChild(tweakPanel);
+}
+function hideTweaks(){if(tweakPanel)tweakPanel.style.display='none'}
+function setA(c){tw.accentColor=c;applyTweaks(tw);window.parent.postMessage({type:'__edit_mode_set_keys',edits:{accentColor:c}},'*');showTweaks()}
+function setG(c){tw.goldColor=c;applyTweaks(tw);window.parent.postMessage({type:'__edit_mode_set_keys',edits:{goldColor:c}},'*');showTweaks()}
+</script>
+</body>
+</html>
